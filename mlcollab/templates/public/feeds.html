@@ -1,0 +1,137 @@
+{% extends 'layout/users_layout.html' %}
+
+
+{% block content %}
+<div class="container my-3">
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb p-3 bg-body-tertiary rounded-3">
+            <li class="breadcrumb-item">
+                <a class="link-body-emphasis" href="{{url_for('public.home')}}">
+                    <i class="bi-house-fill"></i>
+                    <span class="visually-hidden">Home</span>
+                </a>
+            </li>
+            <li class="breadcrumb-item">
+                <a class="link-body-emphasis fw-semibold text-decoration-none" href="{{url_for('public.dashboard')}}">
+                    Dashboard
+                </a>
+            </li>
+            <li class="breadcrumb-item active" aria-current="page">
+                Feeds
+            </li>
+        </ol>
+    </nav>
+</div>
+
+<main class="container">
+    <div class="row">
+        <div class="col-md-6">
+            <form action="" method="post">
+                {{ form.hidden_tag() }}
+                <div class="input-group input-group-lg">
+                    <div class="input-group-text">
+                        <i class="bi-search"></i>
+                    </div>
+                    {{ form.keyword(class="form-control", placeholder="Enter topic keyword") }}
+                    {% if form.keyword.errors %}
+                    <div class="invalid-feedback">
+                        {% for error in form.keyword.errors %}
+                        {{ error }}
+                        {% endfor %}
+                    </div>
+                    {% endif %}
+                    {{ form.submit(class="input-group-text btn btn-primary fw-semibold") }}
+                </div>
+            </form>
+            {% if find == "yes" %}
+            <div class="text-center mt-3">
+                <a href="{{ url_for('public.feeds')}}" class="btn btn-sm btn-outline-primary rounded-3">
+                    View All
+                </a>
+            </div>
+            {% endif %}
+        </div>
+        <div class="col-md-6">
+            <div class="text-end">
+                <a href="{{ url_for('public.add_post')}}" class="btn btn-lg btn-outline-info fst-italic rounded-3">
+                    <i class="bi-pencil-square"></i> Write New Post
+                </a>
+            </div>
+        </div>
+    </div>
+    <br>
+    <div class="fs-1 fw-light text-secondary">
+        Community Feeds
+    </div>
+    <hr>
+    {% for post in posts %}
+    <article class="card shadow-sm mb-3">
+        <div class="card-body">
+            <div class="d-flex">
+                <div>
+                    <img src="{{ url_for('static', filename='profile_imgs/'~post.profile_img) }}"
+                        alt="{{ post.last_name }}" width="65" height="65"
+                        class="rounded-circle flex-shrink-0 shadow-sm me-3">
+                </div>
+                <div>
+                    <div class="fst-italic text-decoration-none text-info-emphasis">
+                        {{ post.last_name }} {{ post.first_name}}
+                        {% if post.role == "Developer" %}
+                        <span class="badge bg-warning bg-opacity-60 text-warning-emphasis rounded-pill">Dev</span>
+                        {% else %}
+                        <span class="badge bg-success-subtle text-success-emphasis rounded-pill">Newbie</span>
+                        {% endif %}
+                    </div>
+                    <a href="{{ url_for('public.view_post_page', post_id=post.post_id) }}"
+                        class="fs-3 fw-semibold text-decoration-none text-info">
+                        {{ post.post_title }}
+                    </a>
+                    <div class="blog-post-meta">
+                        Posted on {{ post.post_date}}
+                    </div>
+                </div>
+            </div>
+            <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                <a href="{{ url_for('public.view_post_page', post_id=post.post_id) }}" class="btn btn-light me-md-2"
+                    type="button">
+                    <i class="bi bi-chat"></i>
+                    {{ post.comment_count }} comments
+                </a>
+            </div>
+        </div>
+    </article>
+    {% endfor %}
+
+    <!-- Pagination -->
+    <div class="container mt-3 mb-3">
+        <div class="d-flex justify-content-center">
+            {% for page_num in posts.iter_pages(left_edge=1, right_edge=1, left_current=1, right_current=2) %}
+            {% if page_num %}
+            {% if posts.page == page_num %}
+            <a class="btn btn-primary m-2 text-white" href="{{ url_for('public.feeds', page=page_num) }}"
+                id="pg_link{{ page_num }}">
+                {{ page_num }}
+            </a>
+            {% else %}
+            <a class="btn btn-outline-primary m-2" href="{{ url_for('public.feeds', page=page_num) }}"
+                id="pg_link{{ page_num }}">
+                {{ page_num }}
+            </a>
+            {% endif %}
+            {% else %}
+            <button class="btn btn-outline-secondary m-2" disabled>
+                ...
+            </button>
+            {% endif %}
+            {% endfor %}
+        </div>
+    </div>
+</main>
+
+<!-- JS -->
+<script>
+    $(document).ready(function () {
+        $("#feeds-tab").addClass("active");
+    });
+</script>
+{% endblock content %}

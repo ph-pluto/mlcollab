@@ -1,0 +1,133 @@
+{% extends 'layout/admin_layout.html' %}
+
+
+{% block content %}
+<div class="container-fluid">
+    <div class="container my-3">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb p-3 bg-body-tertiary rounded-3">
+                <li class="breadcrumb-item">
+                    <a class="link-body-emphasis" href="{{url_for('public.home')}}">
+                        <i class="bi-house-fill"></i>
+                        <span class="visually-hidden">Home</span>
+                    </a>
+                </li>
+                <li class="breadcrumb-item">
+                    <a class="link-body-emphasis fw-semibold text-decoration-none" href="{{url_for('public.dashboard')}}">
+                        Dashboard
+                    </a>
+                </li>
+            </ol>
+        </nav>
+    </div>
+</div>
+<div class="container mt-4 text-center">
+    <div class="row gutters">
+        <div class="col-lg-3 col-sm-6 mb-2 pop">
+            <div class="p-4 bg-primary-subtle rounded-3">
+                <div class="simple-widget">
+                    <h2 class="text-primary-emphasis">
+                        {{ totals["learner"] }}
+                    </h2>
+                    <a href="{{ url_for('admin.learner') }}" class="text-primary-emphasis text-decoration-none mb-3">
+                        <p class="fw-semibold fs-4">
+                            Learner
+                        </p>
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-3 col-sm-6 mb-2 pop">
+            <div class="p-4 bg-success-subtle rounded-3">
+                <div class="simple-widget">
+                    <h2 class="text-success">
+                        {{ totals["developer"] }}
+                    </h2>
+                    <a href="{{ url_for('admin.developer') }}" class="text-decoration-none mb-3">
+                        <p class="fw-semibold fs-4 text-success-emphasis">
+                            Developer
+                        </p>
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-3 col-sm-6 mb-2 pop">
+            <div class="p-4 bg-info-subtle rounded-3">
+                <div class="simple-widget">
+                    <h2 class="text-info">
+                        {{ totals["models"] }}
+                    </h2>
+                    <a href="{{ url_for('admin.model_list') }}" class="text-decoration-none mb-3">
+                        <p class="fw-semibold fs-4 text-info-emphasis">
+                            Models
+                        </p>
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-3 col-sm-6 mb-2 pop">
+            <div class="p-4 bg-warning-subtle rounded-3">
+                <div class="simple-widget secondary">
+                    <h2 class="text-warning">
+                        {{ totals["posts"] }}
+                    </h2>
+                    <a href="{{ url_for('admin.manage_feeds') }}" class="text-decoration-none mb-3">
+                        <p class="fw-semibold fs-4 text-warning-emphasis">
+                            Posts
+                        </p>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-12 mb-2 mt-4">
+        <div class="card shadow-sm">
+            <div class="card-header bg-primary bg-gradient bg-opacity-50">
+                <div class="fw-semibold fs-4 text-white">
+                    View Actions
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="row gutters">
+                    <div class="col-xl-4 p-3 pops">
+                        <h4 class="info-total text-success">
+                            {{ totals["support_files"] }}
+                        </h4>
+                        <h6 class="info-title">Support files</h6>
+                    </div>
+                    <div class="col-xl-4 p-3 pops">
+                        <h4 class="info-total text-info">
+                            {{ totals["comments"] }}
+                        </h4>
+                        <h6 class="info-title">All Comments</h6>
+                    </div>
+                    <div class="col-xl-4 p-3 pops">
+                        <h4 class="info-total text-warning-emphasis">
+                            {{ totals["upload_model"] }}
+                        </h4>
+                        <h6 class="info-title">Upload Models</h6>
+                    </div>
+                    <div class="col-xl-4 p-3 pops">
+                        <h4 class="info-total text-danger">
+                            {{ totals["delete_support_files"] }}
+                        </h4>
+                        <h6 class="info-title">Delete Support Files</h6>
+                    </div>
+                    <div class="col-xl-4 p-3 pops">
+                        <h4 class="info-total text-danger">
+                            {{ totals["delete_comments"] }}
+                        </h4>
+                        <h6 class="info-title">Delete Comments</h6>
+                    </div>
+                    <div class="col-xl-4 p-3 pops">
+                        <h4 class="info-total text-danger">
+                            {{ totals["delete_model"] }}
+                        </h4>
+                        <h6 class="info-title">Delete Models</h6>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock content %}

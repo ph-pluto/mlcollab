@@ -1,0 +1,183 @@
+{% extends 'layout/users_layout.html' %}
+
+
+{% block content %}
+<script>
+    window.addEventListener("beforeunload", function (e) {
+        navigator.sendBeacon('/close_netron_server', JSON.stringify({ model_id: "{{ model.model_id }}" }));
+    });
+</script>
+<div class="container-fluid">
+    <div class="container my-3">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb p-3 bg-body-tertiary rounded-3">
+                <li class="breadcrumb-item">
+                    <a class="link-body-emphasis" href="{{ url_for('public.home') }}">
+                        <i class="bi-house-fill"></i>
+                        <span class="visually-hidden">Home</span>
+                    </a>
+                </li>
+                <li class="breadcrumb-item">
+                    <a class="link-body-emphasis fw-semibold text-decoration-none"
+                        href="{{ url_for('public.dashboard') }}">
+                        Dashboard
+                    </a>
+                </li>
+                <li class="breadcrumb-item">
+                    <a class="link-body-emphasis fw-semibold text-decoration-none"
+                        href="{{ url_for('public.models') }}">
+                        Models
+                    </a>
+                </li>
+                <li class="breadcrumb-item">
+                    <a class="link-body-emphasis fw-semibold text-decoration-none"
+                        href="{{ url_for('public.view_model') }}">
+                        View Models
+                    </a>
+                </li>
+                <li class="breadcrumb-item active" aria-current="page">
+                    {{ model.model_name }}
+                </li>
+            </ol>
+        </nav>
+    </div>
+
+    <div class="container">
+        <div class="card shadow-sm border-info">
+            <div class="card-header bg-info bg-gradient bg-opacity-25 border-info d-flex justify-content-between">
+                <div class="fw-semibold fs-4 text-info-emphasis">
+                    {{ model.model_name }}
+                    <span class="text-body-tertiary">
+                        (.{{ model.model_file_type }})
+                    </span>
+                </div>
+                <div>
+                    <a href="{{ url_for('public.model_update', model_id=model.model_id) }}"
+                        class="btn btn-sm btn-info text-white bg-gradient">
+                        <i class="bi bi-pencil-square"></i>
+                    </a>
+                    <a class="btn btn-sm btn-danger text-white bg-gradient"
+                        href="{{ url_for('public.delete_model', model_id=model.model_id )}}"
+                        onclick="return confirm('Delete {{ model.model_name }}?')">
+                        <i class="bi bi-trash"></i>
+                    </a>
+                </div>
+            </div>
+            <div class="card-body">
+                <p class="card-text">
+                <div class="fw-bold fs-5 text-info-emphasis">
+                    Description:
+                </div>
+                <br>
+                {{ details.description }}
+                <br>
+                <a href="{{ url_for('public.model_visualize', type=model.model_file_type, model_id=model.model_id) }}"
+                    class="btn btn-outline-info mt-3">
+                    Other Details & Visualization
+                </a>
+                {% if model.model_file_type == "onnx" %}
+                <a href="{{ url_for('public.view_onnx_netron', model_id=model.model_id) }}" target="_blank"
+                    class="btn btn-outline-success mt-3">
+                    Visualize with Netron
+                </a>
+                {% endif %}
+                </p>
+            </div>
+        </div>
+        <div class="card shadow-sm mt-3 mb-3 border-secondary">
+            <div
+                class="card-header bg-secondary bg-gradient bg-opacity-75 border-secondary d-flex justify-content-between">
+                <div class="fw-semibold fs-4 text-white">
+                    Model Files
+                </div>
+                <div>
+                    <button class="btn btn-sm btn-dark text-white bg-gradient" type="button" data-bs-toggle="modal"
+                        data-bs-target="#uploadModalFile">
+                        <i class="bi bi-cloud-upload-fill"></i>
+                    </button>
+                </div>
+            </div>
+            <div class="card-body">
+                <table class="table table-hover table-borderless">
+                    <thead>
+                        <tr>
+                            <th scope="col" class="text-start fs-5 text-dark-emphasis">
+                                File Name
+                            </th>
+                            <th scope="col" class="fs-5 text-dark-emphasis">
+                                Upload Date
+                            </th>
+                            <th scope="col" class="text-end fs-5 text-dark-emphasis">
+                                Actions
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="text-start fw-semibold text-info-emphasis">
+                                Main Model File
+                            </td>
+                            <td>
+                                {{ details.upload_date }}
+                            </td>
+                            <td class="text-end">
+                                <a href="{{ url_for('public.download_model_file', model_id=model.model_id) }}"
+                                    class="btn btn-sm btn-primary bg-gradient">
+                                    <i class="bi bi-download"></i>
+                                </a>
+                            </td>
+                        </tr>
+                        {% for file in files %}
+                        <tr>
+                            <td class="text-start text-info-emphasis">
+                                {{ file.file_name }}
+                            </td>
+                            <td>
+                                {{ file.upload_date }}
+                            </td>
+                            <td class="text-end">
+                                <a href="{{ url_for('public.download_model_support_file', file_id=file.file_id)}}"
+                                    class="btn btn-sm btn-primary bg-gradient">
+                                    <i class="bi bi-download"></i>
+                                </a>
+                                <a class="btn btn-sm btn-danger bg-gradient"
+                                    href="{{ url_for('public.delete_file', model_id=model.model_id, file_id = file.file_id )}}"
+                                    onclick="return confirm('Delete {{ file.file_name }}?')">
+                                    <i class="bi bi-trash3"></i>
+                                </a>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% include '/public/dialog/model_file_upload.html' %}
+<!-- JS -->
+<script>
+    $(document).ready(function () {
+        $("#model-tab").addClass("active");
+    });
+    // Edit btn
+    $("#diag_info_btn").click(function (e) {
+        $("#diag_info_box").val($("#diag_info").text());
+        $("#diag_info_btn").hide();
+        $("#diag_info").hide();
+
+        $("#diag_info_save_btn").show();
+        $("#diag_info_box").show();
+    });
+    // Save btn
+    $("#diag_info_save_btn").click(function (e) {
+        $("#diag_info").html($("#diag_info_box").val());
+        $("#diag_info_save_btn").hide();
+        $("#diag_info_box").hide();
+
+        $("#diag_info_btn").show();
+        $("#diag_info").show();
+    });
+</script>
+{% endblock content %}

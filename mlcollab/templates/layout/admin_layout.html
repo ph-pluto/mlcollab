@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.min.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap-icons.min.css') }}">
+    <script src="{{ url_for('static', filename='js/jquery-3.7.1.min.js') }}"></script>
+    {% if title %}
+    <title>MlCollab - {{ title }}</title>
+    {% else %}
+    <title>MlCollab</title>
+    {% endif %}
+    <link rel="shortcut icon" href="{{url_for('static', filename='icons/favicon.ico')}}" type="image/x-icon">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/dashboard.css') }}">
+</head>
+
+<body>
+    {% include 'public/db_svg.html' %}
+    <header class="navbar sticky-top flex-md-nowrap p-0 shadow" style="background-color: #4285f4;">
+        <a class="navbar-brand col-md-3 col-lg-2 me-0 px-3 fs-5 text-white" href="{{url_for('public.home')}}">
+            <img src="{{url_for('static', filename='icons/mlcol_logo.svg')}}" alt="">
+            <span class="text-white mb-0 h1 fw-bold fs-5">MLCollab</span>
+        </a>
+        <ul class="navbar-nav flex-row d-md-none">
+            <li class="nav-item text-nowrap">
+                <button class="nav-link px-3 text-white" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#navbarSearch" aria-controls="navbarSearch" aria-expanded="false"
+                    aria-label="Toggle search">
+                    <i class="bi bi-search"></i>
+                </button>
+            </li>
+            <li class="nav-item text-nowrap">
+                <button class="nav-link px-3 text-white" type="button" data-bs-toggle="offcanvas"
+                    data-bs-target="#sidebarMenu" aria-controls="sidebarMenu" aria-expanded="false"
+                    aria-label="Toggle navigation">
+                    <i class="bi bi-list"></i>
+                </button>
+            </li>
+        </ul>
+        <div id="navbarSearch" class="navbar-search w-100 collapse">
+            <input class="form-control w-100 rounded-0 border-0" type="text" placeholder="Search" aria-label="Search">
+        </div>
+    </header>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="sidebar border border-right col-md-3 col-lg-2 p-0 bg-body-tertiary">
+                <div class="offcanvas-md offcanvas-end bg-body-tertiary" tabindex="-1" id="sidebarMenu"
+                    aria-labelledby="sidebarMenuLabel">
+                    <div class="offcanvas-header">
+                        <h5 class="offcanvas-title" id="sidebarMenuLabel">MLCollab</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="offcanvas"
+                            data-bs-target="#sidebarMenu" aria-label="Close"></button>
+                    </div>
+                    <div class="offcanvas-body d-md-flex flex-column p-0 pt-lg-3 overflow-y-auto">
+                        <ul class="nav flex-column mt-2">
+                            <h6 class="sidebar-heading d-flex px-3 mb-1 text-body-secondary text-uppercase">
+                                <span>Dashboard</span>
+                            </h6>
+                            <li class="nav-item mt-1">
+                                <a class="nav-link d-flex align-items-center gap-2 fs-6"
+                                    href="{{url_for('public.dashboard')}}">
+                                    <i class="bi-file-earmark"></i>
+                                    Overview
+                                </a>
+                            </li>
+                            <hr>
+                            <h6 class="sidebar-heading d-flex px-3 mb-1 text-body-secondary text-uppercase">
+                                <span>Users</span>
+                            </h6>
+                            <li class="nav-item mt-1">
+                                <a class="nav-link d-flex align-items-center gap-2 fs-6"
+                                    href="{{url_for('admin.learner')}}">
+                                    <i class="bi-person-video"></i>
+                                    Learners
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link d-flex align-items-center gap-2 fs-6"
+                                    href="{{url_for('admin.developer')}}">
+                                    <i class="bi-person-workspace"></i>
+                                    Developers
+                                </a>
+                            </li>
+                            <hr>
+                            <h6 class="sidebar-heading d-flex px-3 mb-1 text-body-secondary text-uppercase">
+                                <span>Activities</span>
+                            </h6>
+                            <li class="nav-item mt-1">
+                                <a class="nav-link d-flex align-items-center gap-2 fs-6"
+                                    href="{{url_for('admin.history')}}">
+                                    <i class="bi-clock-history"></i>
+                                    History
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link d-flex align-items-center gap-2 fs-6"
+                                    href="{{url_for('admin.interaction')}}">
+                                    <i class="bi-people"></i>
+                                    Interaction
+                                </a>
+                            </li>
+                        </ul>
+                        <hr>
+                        <h6 class="sidebar-heading d-flex px-3 mb-1 text-body-secondary text-uppercase">
+                            <span>Model</span>
+                        </h6>
+                        <ul class="nav flex-column mb-auto">
+                            <li class="nav-item mt-1">
+                                <a class="nav-link d-flex align-items-center gap-2 fs-6"
+                                    href="{{url_for('admin.manage_feeds')}}">
+                                    <i class="bi bi-menu-button-wide-fill"></i>
+                                    Manage Feeds
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link d-flex align-items-center gap-2 fs-6"
+                                    href="{{url_for('admin.model_list')}}">
+                                    <i class="bi bi-ui-radios"></i>
+                                    Model List
+                                </a>
+                            </li>
+                        </ul>
+                        <hr class="my-3">
+                        <ul class="nav flex-column mb-auto">
+                            <li class="nav-item">
+                                <a class="nav-link d-flex align-items-center gap-2 fs-6"
+                                    href="{{url_for('admin.settings')}}">
+                                    <i class="bi-gear-wide-connected"></i>
+                                    Settings
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link d-flex align-items-center gap-2 fs-6"
+                                    href="{{url_for('public.logout')}}">
+                                    <i class="bi-box-arrow-right fs-6 me-0"></i>
+                                    Log out
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
+                <!-- Notice section start -->
+                {% with messages = get_flashed_messages(with_categories=true) %}
+                {% if messages %}
+                <div class="d-flex justify-content-center mt-1">
+                    {% for category, message in messages %}
+                    <div style="width: 60%;" class="alert alert-{{ category }} alert-dismissible text-center mb-2" fade
+                        show>
+                        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                        {{ message }}
+                    </div>
+                    {% endfor %}
+                </div>
+                {% endif %}
+                {% endwith %}
+
+                {% block content %}
+                {% endblock content %}
+            </main>
+        </div>
+    </div>
+    <script src="{{ url_for('static', filename='js/bootstrap.bundle.min.js') }}"></script>
+</body>
+
+</html>

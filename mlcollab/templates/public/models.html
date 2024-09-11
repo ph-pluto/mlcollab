@@ -1,0 +1,88 @@
+{% extends 'layout/users_layout.html' %}
+
+
+{% block content %}
+<div class="container-fluid">
+    <div class="container my-3">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb p-3 bg-body-tertiary rounded-3">
+                <li class="breadcrumb-item">
+                    <a class="link-body-emphasis" href="{{url_for('public.home')}}">
+                        <i class="bi-house-fill"></i>
+                        <span class="visually-hidden">Home</span>
+                    </a>
+                </li>
+                <li class="breadcrumb-item">
+                    <a class="link-body-emphasis fw-semibold text-decoration-none"
+                        href="{{url_for('public.dashboard')}}">
+                        Dashboard
+                    </a>
+                </li>
+                <li class="breadcrumb-item active" aria-current="page">
+                    Models
+                </li>
+            </ol>
+        </nav>
+    </div>
+    <div class="container text-center">
+        <main>
+            <div class="container py-4">
+                <div class="row align-items-md-stretch">
+                    <div class="col-md-6 mb-3 pops">
+                        <div class="h-100 p-5 bg-info bg-gradient border-light bg-opacity-10 rounded-3">
+                            <img src="{{url_for('static', filename='icons/upload.svg')}}" alt=""
+                                style="width: 60px; height: 60px;">
+                            <h2>Upload Models</h2>
+                            <p>Upload your trained models and assess them with relevant data</p>
+                            <a class="btn btn-outline-dark ps-4 pe-4 fw-semibold me-3" href="{{ url_for('public.upload')}}" role="button">
+                                Upload File
+                            </a>
+                        </div>
+                    </div>
+                    <div class="col-md-6 mb-3 pops">
+                        <div class="h-100 p-5 bg-primary-subtle bg-gradient text-primary-emphasis rounded-3">
+                            <img src="{{url_for('static', filename='icons/model.svg')}}" alt=""
+                                style="width: 60px; height: 60px;">
+                            <h2>Model Catalog</h2>
+                            <p>Come explore the others uploaded models catalog</p>
+                            <a class="btn btn-outline-secondary ps-4 pe-4 fw-semibold me-3" href="{{ url_for('public.model_catalog')}}" role="button">
+                                Get Started
+                            </a>
+                        </div>
+                    </div>
+                    <div class="col-md-6 mb-3 pops">
+                        <div class="h-100 p-5 bg-primary bg-gradient text-primary-emphasis bg-opacity-10 rounded-3">
+                            <img src="{{url_for('static', filename='icons/views.svg')}}" alt=""
+                                style="width: 60px; height: 60px;">
+                            <h2>My Models</h2>
+                            <p>To evaluate your models, view the ones you uploaded</p>
+                            <a class="btn btn-outline-secondary ps-5 pe-5 fw-semibold me-3" href="{{ url_for('public.view_model')}}" role="button">
+                                View 
+                            </a>
+                        </div>
+                    </div>
+                    <div class="col-md-6 mb-3 pops">
+                        <div class="h-100 p-5 bg-info-subtle bg-gradient border-light bg-opacity-10 rounded-3">
+                            <img src="{{url_for('static', filename='icons/post.svg')}}" alt=""
+                                style="width: 60px; height: 60px;">
+                            <h2>Share Thoughts</h2>
+                            <p>Together, let's discuss in community feed</p>
+                            <a class="btn btn-outline-dark ps-5 pe-5 fw-semibold me-3" href="{{ url_for('public.add_post')}}" role="button">
+                                Write
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+</div>
+
+<!-- JS -->
+<script>
+    $(document).ready(function () {
+        $("#model-tab").addClass("active");
+    });
+</script>
+
+{% endblock content %}

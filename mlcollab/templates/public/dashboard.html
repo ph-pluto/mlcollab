@@ -1,0 +1,90 @@
+{% extends 'layout/users_layout.html' %}
+
+
+{% block content %}
+<!-- javascript behaviour -->
+<div class="container-fluid">
+    <div class="container my-3">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb p-3 bg-body-tertiary rounded-3">
+                <li class="breadcrumb-item">
+                    <a class="link-body-emphasis" href="{{url_for('public.home')}}">
+                        <i class="bi-house-fill"></i>
+                        <span class="visually-hidden">Home</span>
+                    </a>
+                </li>
+                <li class="breadcrumb-item">
+                    <a class="link-body-emphasis fw-semibold text-decoration-none"
+                        href="{{url_for('public.dashboard')}}">
+                        Dashboard
+                    </a>
+                </li>
+            </ol>
+        </nav>
+    </div>
+</div>
+
+<section class="py-5">
+    <div class="container">
+        <div class="row mt-4 mb-4">
+            <div class="col-sm-6 col-lg-4 mt-lg-0 mt-4 pops">
+                <img src="{{url_for('static', filename='icons/dashboard/logo/l_one.svg')}}" alt="">
+                <a class="link-body-emphasis fw-semibold text-decoration-none" href="{{url_for('public.view_model')}}">
+                    <h5 class="fs-4 text-primary-emphasis">My Models</h5>
+                </a>
+                <p class="text-sm text-light-emphasis">Explore and manage the uploaded model. Evaluate performance, edits, and keep your
+                    collection organized.</p>
+            </div>
+            <div class="col-sm-6 col-lg-4 mt-lg-0 mt-4 pops">
+                <img src="{{url_for('static', filename='icons/dashboard/logo/l_two.svg')}}" alt="">
+                <a class="link-body-emphasis fw-semibold text-decoration-none"
+                    href="{{url_for('public.model_catalog')}}">
+                    <h5 class="fs-4 text-primary-emphasis">Model Catalogue</h5>
+                </a>
+                <p class="text-sm text-light-emphasis">Browse through a diverse collection of models, evaluate their details, and find the
+                    ones that best fit your needs.</p>
+            </div>
+            <div class="col-sm-6 col-lg-4 mt-lg-0 mt-4 pops">
+                <img src="{{url_for('static', filename='icons/dashboard/logo/l_three.svg')}}" alt="">
+                <a class="link-body-emphasis fw-semibold text-decoration-none" href="{{url_for('public.feeds')}}">
+                    <h5 class="fs-4 text-primary-emphasis">Community Feeds</h5>
+                </a>
+                <p class="text-sm text-light-emphasis">Engage with articles. Share thoughts, search and discuss models. Connect with
+                    community
+                    to exchange insights.</p>
+            </div>
+            <div class="col-sm-6 col-lg-4 mt-lg-5 mt-4 pops">
+                <img src="{{url_for('static', filename='icons/dashboard/logo/l_four.svg')}}" alt="">
+                <a class="link-body-emphasis fw-semibold text-decoration-none" href="{{url_for('public.setting')}}">
+                    <h5 class="fs-4 text-primary-emphasis">Account Settings</h5>
+                </a>
+                <p class="text-sm text-light-emphasis">Update your personal information and password. Modify your profile as needed.</p>
+            </div>
+            <div class="col-sm-6 col-lg-4 mt-lg-5 mt-4 pops">
+                <img src="{{url_for('static', filename='icons/dashboard/logo/l_five.svg')}}" alt="">
+                <a class="link-body-emphasis fw-semibold text-decoration-none" href="{{url_for('public.activities')}}">
+                    <h5 class="fs-4 text-primary-emphasis">Account Logs</h5>
+                </a>
+                <p class="text-sm text-light-emphasis">Track and review all activities. Stay informed about your
+                    engagement and monitor your usage over time.</p>
+            </div>
+            <div class="col-sm-6 col-lg-4 mt-lg-5 mt-4 pops">
+                <img src="{{url_for('static', filename='icons/dashboard/logo/l_six.svg')}}" alt="">
+                <a class="link-body-emphasis fw-semibold text-decoration-none" href="{{url_for('public.logout')}}">
+                    <h5 class="fs-4 text-primary-emphasis">Logout</h5>
+                </a>
+                <p class="text-sm text-light-emphasis">Clicking Logout ends your current session, ensuring your account's security as you
+                    leave the site.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<!-- JS -->
+<script>
+    $(document).ready(function () {
+        $("#home-tab").addClass("active");
+    });
+</script>
+{% endblock content %}

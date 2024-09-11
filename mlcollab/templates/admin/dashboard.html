@@ -1,0 +1,30 @@
+{% extends 'layout/admin_layout.html' %}
+
+
+
+{% block content %}
+<div class="container-fluid">
+    <div class="container my-3">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb p-3 bg-body-tertiary rounded-3">
+                <li class="breadcrumb-item">
+                    <a class="link-body-emphasis" href="{{url_for('public.home')}}">
+                        <i class="bi bi-house-fill"></i>
+                        <span class="visually-hidden">Home</span>
+                    </a>
+                </li>
+                <li class="breadcrumb-item">
+                    <a class="link-body-emphasis fw-semibold text-decoration-none"
+                        href="{{url_for('public.dashboard')}}">Dashboard</a>
+                </li>
+            </ol>
+        </nav>
+        <div class="display-6 my-3">
+            DASHBOARD
+        </div>
+        <h5>
+            some greet card for admins and some card button to go to another tab bar but a little bit fancy.
+        </h5>
+    </div>
+</div>
+{% endblock content %}

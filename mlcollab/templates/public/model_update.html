@@ -1,0 +1,92 @@
+{% extends 'layout/users_layout.html' %}
+
+
+{% block content %}
+<div class="container-fluid">
+    <div class="container my-3">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb p-3 bg-body-tertiary rounded-3">
+                <li class="breadcrumb-item">
+                    <a class="link-body-emphasis" href="{{ url_for('public.home') }}">
+                        <i class="bi-house-fill"></i>
+                        <span class="visually-hidden">Home</span>
+                    </a>
+                </li>
+                <li class="breadcrumb-item">
+                    <a class="link-body-emphasis fw-semibold text-decoration-none"
+                        href="{{ url_for('public.dashboard') }}">
+                        Dashboard
+                    </a>
+                </li>
+                <li class="breadcrumb-item active" aria-current="page">
+                    <a class="link-body-emphasis fw-semibold text-decoration-none"
+                        href="{{ url_for('public.view_model') }}">
+                        View Model
+                    </a>
+                </li>
+                <li class="breadcrumb-item active" aria-current="page">
+                    <a class="link-body-emphasis fw-semibold text-decoration-none"
+                        href="{{ url_for('public.model_view_page', model_id=model.model_id ) }}">
+                        {{ model.model_name }}
+                    </a>
+                </li>
+                <li class="breadcrumb-item active" aria-current="page">
+                    Update Model Information
+                </li>
+            </ol>
+        </nav>
+    </div>
+
+    <div class="container">
+        <main>
+            <div class="container py-2">
+                <div class="row mb-2">
+                    <h2 class="text-primary-subtle fw-bold fst-italic">Update Model: {{ model.model_name }}</h3>
+                    <div class="col-md-12 pt-3 mb-3">
+                        <form action="" method="post">
+                            {{ edit_form.hidden_tag() }}
+                            <div class="row g-0 border rounded mb-4 shadow-sm h-md-250">
+                                    <div class="col-auto d-none d-lg-block h-100">
+                                        <div class="bg-primary bg-gradient text-white bg-opacity-75"></div>
+                                        <svg class="bd-placeholder-img bg-primary bg-opacity-75" width="20" height="590"></svg>
+                                    </div>
+                                    <div class="col p-4 d-flex flex-column">
+                                        <strong class="mb-2 text-primary-emphasis fs-4 fst-italic">Model Details</strong>
+                                        <div class="mb-2 p-1 text-body-secondary">
+                                            {{ edit_form.model_name.label(class='form-label fw-semibold text-primary-emphasis') }}
+                                            {{ edit_form.model_name(class="form-control") }}
+                                        </div>
+                                        <div class="mb-2 p-1 text-body-secondary">
+                                            {{ edit_form.file.label(class='form-label fw-semibold text-primary-emphasis') }}
+                                            {{ edit_form.file(class="form-control") }}
+                                        </div>
+                                        <div class="mb-2 p-1 text-body-secondary">
+                                            {{ edit_form.model_file_type.label(class='form-label fw-semibold text-primary-emphasis') }}
+                                            {{ edit_form.model_file_type(class="form-control") }}
+                                        </div>
+                                        <p class="card-text mb-auto p-1">
+                                            {{ edit_form.description.label(class='form-label fw-semibold text-primary-emphasis')  }}
+                                            {{ edit_form.description(class="form-control", rows="5") }}
+                                        </p>
+                                        <div class="d-grid gap-2 p-1">
+                                            {{ edit_form.submit(class="btn btn-primary btn-sm bg-gradient mt-4 upload-button") }}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>    
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+  
+</div>
+
+<!-- JS -->
+<script>
+    $(document).ready(function () {
+        $("#search-tab").addClass("active");
+    });
+</script>
+{% endblock content %}

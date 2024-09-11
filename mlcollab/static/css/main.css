@@ -1,0 +1,37 @@
+body {
+  background: #e5e5e5;
+}
+
+.error-bg {
+  background: #ffffff url(../images/error-pattern.svg) no-repeat;
+  background-size: cover;
+  background-attachment: fixed;
+}
+.error-bg:after {
+  content: "";
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background: rgba(0, 0, 0, 0.2);
+  backdrop-filter: blur(120px);
+}
+
+.error-container {
+  position: relative;
+  z-index: 1;
+  padding: 3rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  text-align: center;
+  min-height: 100vh;
+  color: #ffffff;
+}
+.error-container h1 {
+  font-size: 12rem;
+  font-weight: 900;
+  text-shadow: 5px 5px 0 #000000;
+}

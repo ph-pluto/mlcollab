@@ -1,0 +1,46 @@
+{% extends 'layout/public_layout.html' %}
+
+
+{% block content %}
+<div class="container mt-3 text-center">
+    <div class="row">
+        <div class="col-5 mt-5" style="text-align: justify;">
+            <div class="mt-5">
+                <p class="fs-1 fw-bold text-decoration-none">
+                    Connect and Share
+                    <br>
+                    Machine Learning Models
+                </p>
+                <br>
+                <p class="fs-4 fw-normal text-secondary">
+                    A platform for easy collaboration and
+                    <br>
+                    knowledge exchange in the Machine
+                    <br>
+                    Learning community
+                </p>
+            </div>
+            <br>
+            <div class="d-inline-flex gap-2 mb-5">
+                <a href="{{url_for('public.login')}}" class="d-inline-flex align-items-center btn btn-primary btn-lg px-4 rounded-pill">
+                    Get Started
+                    <br>
+                    <svg width="30" height="30" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path opacity="10"
+                            d="M4 11.25C3.58579 11.25 3.25 11.5858 3.25 12C3.25 12.4142 3.58579 12.75 4 12.75V11.25ZM4 12.75H20V11.25H4V12.75Z"
+                            fill="#ffffff" />
+                        <path d="M14 6L20 12L14 18" stroke="#ffffff" stroke-width="2" stroke-linecap="round"
+                            stroke-linejoin="round" />
+                    </svg>
+                </a>
+                <button class="btn btn-outline-secondary btn-lg px-4 rounded-pill" type="button">
+                    More about us
+                </button>
+            </div>
+        </div>
+        <div class="col-lg-6 mt-1">
+            <img src="{{url_for('static', filename='images/homepage.webp')}}" alt="" style="max-width: 700px;">
+        </div>
+    </div>
+</div>
+{% endblock content %}

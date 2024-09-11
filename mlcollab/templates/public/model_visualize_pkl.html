@@ -1,0 +1,116 @@
+{% extends 'layout/users_layout.html' %}
+
+
+{% block content %}
+    <div class="container my-3">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb p-3 bg-body-tertiary rounded-3">
+                <li class="breadcrumb-item">
+                    <a class="link-body-emphasis" href="{{ url_for('public.home') }}">
+                        <i class="bi-house-fill"></i>
+                        <span class="visually-hidden">Home</span>
+                    </a>
+                </li>
+                <li class="breadcrumb-item">
+                    <a class="link-body-emphasis fw-semibold text-decoration-none"
+                        href="{{ url_for('public.dashboard') }}">
+                        Dashboard
+                    </a>
+                </li>
+                <li class="breadcrumb-item">
+                    <a class="link-body-emphasis fw-semibold text-decoration-none"
+                        href="{{ url_for('public.models') }}">
+                        Models
+                    </a>
+                </li>
+                <li class="breadcrumb-item">
+                    <a class="link-body-emphasis fw-semibold text-decoration-none"
+                        href="{{ url_for('public.view_model') }}">
+                        View Models
+                    </a>
+                </li>
+                <li class="breadcrumb-item">
+                    <a class="link-body-emphasis fw-semibold text-decoration-none"
+                        href="{{ url_for('public.model_view_page', model_id=model.model_id) }}">
+                        {{ model.model_name }}
+                    </a>
+                </li>
+                <li class="breadcrumb-item active" aria-current="page">
+                    Other Details & Visualization
+                </li>
+            </ol>
+        </nav>
+    </div>
+
+<div class="container">
+    <h1 class="fst-italic text-info-emphasis mt-1 mb-3">
+        {{ model.model_name }}
+    </h1>
+    <hr class="bg-light">
+    <div class="card border-light shadow-sm mb-4 h-100">
+        <div class="card-header bg-light fw-bold text-primary-emphasis">
+            Evaluation Metrics
+        </div>
+        <div class="card-body">
+            <h6>Summary</h6>
+            <p>{{ summary.split(",") }}</p>
+        </div>
+    </div>
+    <div class="card border-light shadow-sm mb-4 h-100">
+        <div class="card-header bg-light fw-bold text-primary-emphasis">
+            Parameters
+        </div>
+        <div class="card-body">
+            {% if params == "fail" %}
+            <div class="text-danger">
+                Failed to read <i>parameters</i>
+            </div>
+            {% else %}
+            <table class="table table-sm table-bordered table-striped">
+                <thead class="table-secondary">
+                    <tr>
+                        <th>Parameter</th>
+                        <th>Value</th>
+                    </tr>
+                </thead>
+                <tbody>
+                {% for key, val in params.items() %}
+                <tr>
+                    <td>{{ key }}</td>
+                    <td>{{ val }}</td>
+                </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+            {% endif %}
+        </div>
+    </div>
+</div>
+<div class="container text-center mb-4">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card border-light shadow-sm mb-4 mt-3">
+                <div class="card-header bg-light fw-bold text-primary-emphasis">
+                    Feature Importances
+                </div>
+                <div class="card-body">
+                    {% if fi_fig == "fail" %}
+                    <div class="text-danger">
+                        <i>feature_importances_</i> doesn't exits!
+                    </div>
+                    {% else %}
+                    <img src="{{ fi_fig }}" alt="Feature Importance Plot" class="img-fluid">
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- JS -->
+<script>
+    $(document).ready(function () {
+        $("#model-tab").addClass("active");
+    });
+</script>
+{% endblock content %}

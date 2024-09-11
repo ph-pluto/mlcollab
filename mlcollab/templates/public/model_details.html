@@ -1,0 +1,114 @@
+{% extends 'layout/users_layout.html' %}
+
+
+{% block content %}
+<div class="container-fluid">
+    <div class="container my-3">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb p-3 bg-body-tertiary rounded-3">
+                <li class="breadcrumb-item">
+                    <a class="link-body-emphasis" href="{{url_for('public.home')}}">
+                        <i class="bi-house-fill"></i>
+                        <span class="visually-hidden">Home</span>
+                    </a>
+                </li>
+                <li class="breadcrumb-item">
+                    <a class="link-body-emphasis fw-semibold text-decoration-none"
+                        href="{{url_for('public.dashboard')}}">
+                        Dashboard
+                    </a>
+                </li>
+                <li class="breadcrumb-item active" aria-current="page">
+                    <a class="link-body-emphasis fw-semibold text-decoration-none"
+                        href="{{ url_for('public.models') }}">
+                        Models
+                    </a>
+                </li>
+                <li class="breadcrumb-item active" aria-current="page">
+                    <a class="link-body-emphasis fw-semibold text-decoration-none"
+                        href="{{ url_for('public.model_catalog') }}">
+                        Models Catalog
+                    </a>
+                </li>
+                <li class="breadcrumb-item active" aria-current="page">
+                    {{ model.model_name }}
+                </li>
+            </ol>
+        </nav>
+    </div>
+</div>
+
+<div class="container py-4">
+    <div class="row g-3 align-items-md-stretch mx-auto">
+        <div class="col-xl-12 mt-3">
+            <div class="h-100 p-5 bg-info bg-opacity-10 bg-gradient border-light rounded-3">
+                <h2 class="fs-bold text-info-emphasis text-center mb-3 pops">
+                    Model Details
+                </h2>
+                <div class="container-fluid mt-4">
+                    <table class="table table-border table-hover shadow">
+                        <tr class="pops">
+                            <th scope="col" class="text-start text-primary-emphasis fst-italic p-3">Model Name</th>
+                            <td class="text-start fs-semibold text-info-emphasis p-3">{{ model.model_name }}</td>
+                        </tr>
+                        <tr class="pops">
+                            <th scope="col" class="text-start text-primary-emphasis fst-italic p-3">Model Type</th>
+                            <td class="text-start text-info-emphasis p-3">{{ model.model_file_type }}</td>
+                        </tr>
+                        <tr class="pops">
+                            <th scope="col" class="text-start text-primary-emphasis fst-italic p-3">Description</th>
+                            <td class="text-start text-info-emphasis p-3">{{ model_detail.description }}</td>
+                        </tr>
+                    </table>
+                </div>
+                <h2 class="fs-bold text-info-emphasis text-center mb-3 pops">
+                    Model Files
+                </h2>
+                <div class="container-fluid mt-4">
+                    <table class="table table-border table-hover shadow">
+                        <tbody>
+                            <tr>
+                                <td class="text-start fw-semibold text-primary-emphasis p-2">
+                                    Main Model File
+                                </td>
+                                <td class="text-info-emphasis p-2">
+                                    {{ model_detail.upload_date }}
+                                </td>
+                                <td class="text-end text-info-emphasis p-2">
+                                    <a href="{{ url_for('public.download_model_file', model_id=model.model_id) }}"
+                                        class="btn btn-primary bg-gradient">
+                                        <i class="bi bi-download"></i>
+                                    </a>
+                                </td>
+                            </tr>
+                            {% for file in files %}
+                            <tr>
+                                <td class="text-start text-primary-emphasis p-2">
+                                    {{ file.file_name }}
+                                </td>
+                                <td class="text-info-emphasis p-2">
+                                    {{ file.upload_date }}
+                                </td>
+                                <td class="text-end text-info-emphasis p-2">
+                                    <a href="{{ url_for('public.download_model_support_file', file_id=file.file_id)}}"
+                                        class="btn btn-primary bg-gradient">
+                                        <i class="bi bi-download"></i>
+                                    </a>
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- JS -->
+<script>
+    $(document).ready(function () {
+        $("#model-tab").addClass("active");
+    });
+</script>
+{% endblock content %}

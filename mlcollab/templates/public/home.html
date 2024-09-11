@@ -1,0 +1,45 @@
+{% extends 'layout/public_layout.html' %}
+
+
+{% block content %}
+<div class="container mt-4 text-center">
+    <div class="p-5 bg-primary p-2 text-white bg-opacity-50 text-center rounded-3">
+        <h1>Welcome to MLCollab Community</h1>
+        <hr>
+        <p class="fs-6 fst-italic text-center">
+            A platform where we can sharing and testing of Machine learning models 
+            <br>
+            it aligns well with collaborative learning and knowledge exchange within the MLCollab community
+        </p>
+    </div>
+
+    <main>
+        <div class="container py-4">
+            <div class="row align-items-md-stretch">
+                <div class="col-md-6 pops">
+                    <div class="h-100 p-5 bg-body-tertiary border rounded-3">
+                        <img src="{{url_for('static', filename='icons/upload.svg')}}" alt=""
+                        style="width: 60px; height: 60px;">
+                        <h2>Upload Model</h2>
+                        <p>Upload your trained models and assess them with relevant data</p>
+                        <a class="btn btn-outline-dark ps-4 pe-4 fw-semibold me-3" href="{{ url_for('public.upload')}}" role="button">
+                            Upload File
+                        </a>
+                    </div>
+                </div>
+                <div class="col-md-6 pops">
+                    <div class="h-100 p-5 bg-primary-subtle text-primary-emphasis rounded-3">
+                        <img src="{{url_for('static', filename='icons/model.svg')}}" alt=""
+                        style="width: 60px; height: 60px;">
+                        <h2>Explore Models</h2>
+                        <p>Let connect with a community for mutual sharing and learning</p>
+                        <a class="btn btn-outline-dark ps-4 pe-4 fw-semibold me-3" href="{{ url_for('public.feeds')}}" role="button">
+                            Get Started
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+</div>
+{% endblock content %}

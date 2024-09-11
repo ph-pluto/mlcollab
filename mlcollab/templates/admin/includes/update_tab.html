@@ -1,0 +1,130 @@
+<form action="{{ url_for('admin.admin_profile_handler') }}" method="post" enctype="multipart/form-data">
+    {{ form.hidden_tag() }}
+    <!-- General Tab Content -->
+    <div class="row justify-content-between">
+        <div class="col-md-4 p-4">
+            <div class="card h-100 border-light shadow mb-4">
+                <div class="card-header bg-body-tertiary p-2 text-primary-emphasis bg-opacity-75">
+                    <h5 class="card-title mt-2">Update Profile</h5>
+                </div>
+                <div class="card-body">
+                    <!-- Form Field Start -->
+                    <div class="mb-3 text-center">
+                        <div class="thumb">
+                            <img src="{{ url_for('static', filename='profile_imgs/'~user.profile_img) }}" alt=""
+                                width="200" height="200" class="rounded me-3">
+                        </div>
+                    </div>
+                    <p class="fs-6 fw-light fst-italic text-primary-emphasis text-center">
+                        Update Image (svg, jpg, png, jpeg only)
+                    </p>
+                    <!-- Form Field Start -->
+                    <div class="mb-3">
+                        {{ form.profile_img.label(class='form-label') }}
+                        {{ form.profile_img(class='form-control') }}
+                        {% if form.profile_img.errors %}
+                        <div class="invalid-feedback">
+                            {% for error in form.profile_img.errors %}
+                            {{ error }}
+                            {% endfor %}
+                        </div>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Next Card -->
+        <div class="col-md-8 p-4">
+            <div class="card h-100 border-light shadow mb-4">
+                <div class="card-header bg-body-tertiary p-2 text-primary-emphasis bg-opacity-75">
+                    <h5 class="card-title mt-2"> Personal Details</h5>
+                </div>
+                <div class="card-body">
+                    <!-- Row start -->
+                    <div class="row">
+                        <div class="col-6">
+                            <!-- Form Firstname Start -->
+                            <div class="mb-3">
+                                {{ form.firstname.label(class='form-label') }}
+                                {{ form.firstname(class='form-control', placeholder='Enter First Name') }}
+                                {% if form.firstname.errors %}
+                                <div class="invalid-feedback">
+                                    {% for error in form.firstname.errors %}
+                                    {{ error }}
+                                    {% endfor %}
+                                </div>
+                                {% endif %}
+                            </div>
+                            <!-- Form Lastname Start -->
+                            <div class="mb-3">
+                                {{ form.lastname.label(class='form-label') }}
+                                {{ form.lastname(class='form-control', placeholder='Enter Last Name') }}
+                                {% if form.lastname.errors %}
+                                <div class="invalid-feedback">
+                                    {% for error in form.lastname.errors %}
+                                    {{ error }}
+                                    {% endfor %}
+                                </div>
+                                {% endif %}
+                            </div>
+                            <!-- Form Address Start -->
+                            <div class="mb-3">
+                                {{ form.address.label(class='form-label') }}
+                                {{ form.address(class='form-control', placeholder='Enter Address') }}
+                                {% if form.address.errors %}
+                                <div class="invalid-feedback">
+                                    {% for error in form.address.errors %}
+                                    {{ error }}
+                                    {% endfor %}
+                                </div>
+                                {% endif %}
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <!-- Form Email Start -->
+                            <div class="mb-3">
+                                {{ form.email.label(class='form-label') }}
+                                {{ form.email(class='form-control', placeholder='Enter Email') }}
+                                {% if form.email.errors %}
+                                <div class="invalid-feedback">
+                                    {% for error in form.email.errors %}
+                                    {{ error }}
+                                    {% endfor %}
+                                </div>
+                                {% endif %}
+                            </div>
+                            <!-- Form Birthdate Start -->
+                            <div class="mb-3">
+                                {{ form.birthdate.label(class='form-label') }}
+                                {{ form.birthdate(class='form-control', placeholder='Enter Birthdate') }}
+                                {% if form.birthdate.errors %}
+                                <div class="invalid-feedback">
+                                    {% for error in form.birthdate.errors %}
+                                    {{ error }}
+                                    {% endfor %}
+                                </div>
+                                {% endif %}
+                            </div>
+                            <!-- Form Gender Start -->
+                            <div class="mb-3">
+                                {{ form.gender.label(class='form-label') }}
+                                {{ form.gender(class='form-control', placeholder='Enter Gender') }}
+                                {% if form.gender.errors %}
+                                <div class="invalid-feedback">
+                                    {% for error in form.gender.errors %}
+                                    {{ error }}
+                                    {% endfor %}
+                                </div>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Row end -->
+                    <div class="d-grid gap-2 mt-3">
+                        {{ form.submit(class="btn btn-primary profile-button") }}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>

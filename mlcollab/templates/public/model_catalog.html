@@ -1,0 +1,142 @@
+{% extends 'layout/users_layout.html' %}
+
+
+{% block content %}
+<div class="container-fluid">
+    <div class="container my-3">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb p-3 bg-body-tertiary rounded-3">
+                <li class="breadcrumb-item">
+                    <a class="link-body-emphasis" href="{{url_for('public.home')}}">
+                        <i class="bi-house-fill"></i>
+                        <span class="visually-hidden">Home</span>
+                    </a>
+                </li>
+                <li class="breadcrumb-item">
+                    <a class="link-body-emphasis fw-semibold text-decoration-none"
+                        href="{{url_for('public.dashboard')}}">
+                        Dashboard
+                    </a>
+                </li>
+                <li class="breadcrumb-item active" aria-current="page">
+                    <a class="link-body-emphasis fw-semibold text-decoration-none"
+                        href="{{ url_for('public.models') }}">
+                        Models
+                    </a>
+                </li>
+                <li class="breadcrumb-item active" aria-current="page">
+                    Model Catalog
+                </li>
+            </ol>
+        </nav>
+    </div>
+</div>
+<div class="container mt-3 mb-3">
+    <form action="" method="post">
+        {{ form.hidden_tag() }}
+        <div class="input-group">
+            <div class="input-group-text">
+                <i class="bi-search"></i>
+            </div>
+            {{ form.keyword(class="form-control", placeholder="Enter model name/type") }}
+            {% if form.keyword.errors %}
+            <div class="invalid-feedback">
+                {% for error in form.keyword.errors %}
+                {{ error }}
+                {% endfor %}
+            </div>
+            {% endif %}
+            {{ form.submit(class="input-group-text btn btn-primary fw-semibold") }}
+        </div>
+    </form>
+    {% if find == "yes" %}
+        <div class="text-center mt-3">
+            <a href="{{ url_for('public.model_catalog')}}"
+                class="btn btn-sm btn-outline-primary rounded-3">
+                View All
+            </a>
+        </div>
+    {% endif %}
+</div>
+<div class="container text-center">
+    <div class="card shadow mt-3 mb-3 border-light">
+        <div class="card-header bg-primary bg-gradient bg-opacity-75 border-primary d-flex justify-content-between">
+            <div class="fw-semibold fs-4 text-white">
+                Catalog of All Models
+            </div>
+        </div>
+        <div class="card-body">
+            <table class="table table-hover table-borderless">
+                <thead>
+                    <tr>
+                        <th scope="col" class="text-start fs-5 text-dark-emphasis">Model Name</th>
+                        <th scope="col" class="text-start fs-5 text-dark-emphasis">Model Type</th>
+                        <th scope="col" class="text-start fs-5 text-dark-emphasis">Shared by</th>
+                        <th scope="col" class="text-start fs-5 text-dark-emphasis">Date</th>
+                        <th scope="col" class="text-end fs-5 text-dark-emphasis">Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for item in catalogs.items%}
+                    <tr>
+                        <td class="text-start text-info-emphasis">
+                            <i class="bi-file-earmark-text"></i> 
+                            {{ item.model_name }}
+                        </td>
+                        <td class="text-start text-info-emphasis">
+                            {{ item.model_file_type }}
+                        </td>
+                        <td class="text-start text-info-emphasis">
+                            {{ item.username }}
+                        </td>
+                        <td class="text-start text-info-emphasis">
+                            {{ item.upload_date }}
+                        </td>
+                        <td class="text-end">
+                            <a href="{{ url_for('public.model_details', model_id=item.model_id) }}"
+                                class="btn btn-sm btn-primary bg-gradient">
+                                <i class="bi bi-easel2"></i>
+                                More details
+                            </a>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            </p>
+        </div>
+    </div>
+</div>
+
+<!-- Pagination -->
+<div class="container mt-4 mb-3">
+    <div class="d-flex justify-content-center border">
+        {% for page_num in catalogs.iter_pages(left_edge=1, right_edge=1, left_current=1, right_current=2) %}
+        {% if page_num %}
+        {% if catalogs.page == page_num %}
+        <a class="btn btn-primary m-2" href="{{ url_for('public.model_catalog', page=page_num) }}"
+            id="pg_link{{ page_num }}">
+            {{ page_num }}
+        </a>
+        {% else %}
+        <a class="btn btn-outline-dark m-2" href="{{ url_for('public.model_catalog', page=page_num) }}"
+            id="pg_link{{ page_num }}">
+            {{ page_num }}
+        </a>
+        {% endif %}
+        {% else %}
+        <button class="btn btn-outline-secondary m-2" disabled>
+            ...
+        </button>
+        {% endif %}
+        {% endfor %}
+    </div>
+</div>
+
+<!-- JS -->
+<script>
+    $(document).ready(function () {
+        $("#model-tab").addClass("active");
+    });
+</script>
+{% endblock content %}

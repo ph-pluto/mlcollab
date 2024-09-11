@@ -1,0 +1,118 @@
+{% extends 'layout/users_layout.html' %}
+
+
+{% block content %}
+<div class="container-fluid">
+    <div class="container my-3">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb p-3 bg-body-tertiary rounded-3">
+                <li class="breadcrumb-item">
+                    <a class="link-body-emphasis" href="{{url_for('public.home')}}">
+                        <i class="bi-house-fill"></i>
+                        <span class="visually-hidden">Home</span>
+                    </a>
+                </li>
+                <li class="breadcrumb-item">
+                    <a class="link-body-emphasis fw-semibold text-decoration-none"
+                        href="{{url_for('public.dashboard')}}">
+                        Dashboard
+                    </a>
+                </li>
+                <li class="breadcrumb-item active" aria-current="page">
+                    <a class="link-body-emphasis fw-semibold text-decoration-none"
+                        href="{{ url_for('public.models') }}">
+                        Models
+                    </a>
+                </li>
+                <li class="breadcrumb-item active" aria-current="page">
+                    Upload Models
+                </li>
+            </ol>
+        </nav>
+    </div>
+    <div class="container">
+        <div class="h-100 p-5 bg-info bg-gradient bg-opacity-10 border-light rounded-3 mb-4">
+            <form action="{{ url_for('public.upload') }}" method="POST" enctype="multipart/form-data">
+                {{ form.hidden_tag() }}
+                <div class="col-md-8">
+                    <div class="card h-100 border-light shadow mb-4">
+                        <div class="card-header bg-body-tertiary text-primary-emphasis bg-opacity-75">
+                            <h5 class="card-title mt-2"> Upload Models </h5>
+                        </div>
+                        <div class="card-body">
+                            <!-- Form File Type Start -->
+                            <div class="row">
+                                <div class="col-md-12 mb-3">
+                                    {{ form.model_file_type.label(class='form-label') }}
+                                    {{ form.model_file_type(class='form-control') }}
+                                    {% if form.file.errors %}
+                                    <div class="invalid-feedback">
+                                        {% for error in form.model_file_type.errors %}
+                                        {{ error }}
+                                        {% endfor %}
+                                    </div>
+                                    {% endif %}
+                                </div>
+                            </div>
+                            <!-- Form File url Start -->
+                            <div class="row">
+                                <div class="col-md-12 mb-3">
+                                    {{ form.file.label(class='form-label') }}
+                                    {{ form.file(class='form-control') }}
+                                    {% if form.file.errors %}
+                                    <div class="invalid-feedback">
+                                        {% for error in form.file.errors %}
+                                        {{ error }}
+                                        {% endfor %}
+                                    </div>
+                                    {% endif %}
+                                </div>
+                            </div>
+                            <!-- Form model name Start -->
+                            <div class="row">
+                                <div class="col-md-12 mb-3">
+                                    {{ form.model_name.label(class='form-label') }}
+                                    {{ form.model_name(class='form-control', placeholder='Enter Model Name') }}
+                                    {% if form.model_name.errors %}
+                                    <div class="invalid-feedback">
+                                        {% for error in form.model_name.errors %}
+                                        {{ error }}
+                                        {% endfor %}
+                                    </div>
+                                    {% endif %}
+                                </div>
+                            </div>
+                            <!-- Form description Start -->
+                            <div class="row">
+                                <div class="col-md-12 mb-3">
+                                    {{ form.description.label(class='form-label') }}
+                                    {{ form.description(class='form-control', placeholder='Enter Description') }}
+                                    {% if form.description.errors %}
+                                    <div class="invalid-feedback">
+                                        {% for error in form.description.errors %}
+                                        {{ error }}
+                                        {% endfor %}
+                                    </div>
+                                    {% endif %}
+                                </div>
+                            </div>
+                            <div class="d-grid gap-2">
+                                {{ form.submit(class="btn btn-primary mt-4 upload-button") }}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+</div>
+
+<!-- JS -->
+<script>
+    $(document).ready(function () {
+        $("#model-tab").addClass("active");
+    });
+</script>
+
+{% endblock content %}

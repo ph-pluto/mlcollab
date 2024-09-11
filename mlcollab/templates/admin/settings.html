@@ -1,0 +1,62 @@
+{% extends 'layout/admin_layout.html' %}
+
+
+{% block content %}
+<div class="container-fluid">
+    <div class="container my-3">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb p-3 bg-body-tertiary rounded-3">
+                <li class="breadcrumb-item">
+                    <a class="link-body-emphasis" href="{{url_for('public.home')}}">
+                        <i class="bi-house-fill"></i>
+                        <span class="visually-hidden">Home</span>
+                    </a>
+                </li>
+                <li class="breadcrumb-item">
+                    <a class="link-body-emphasis fw-semibold text-decoration-none"
+                        href="{{url_for('public.dashboard')}}">
+                        Dashboard
+                    </a>
+                </li>
+                <li class="breadcrumb-item active" aria-current="page">
+                    Settings
+                </li>
+            </ol>
+        </nav>
+    </div>
+</div>
+
+<div class="container mb-5">
+    <div class="row justify-content-center">
+        <div class="col-xl-12">
+            <div class="card bg-light p-2 bg-opacity-75 shadow">
+                <div class="card-body">
+                    <nav>
+                        <div class="nav nav-underline p-2" id="nav-tab" role="tablist">
+                            <button class="nav-link active" id="nav-general-tab" data-bs-toggle="tab"
+                                data-bs-target="#tab-general" type="button" role="tab" aria-controls="tab-general"
+                                aria-selected="true">
+                                General Info
+                            </button>
+                            <button class="nav-link" id="nav-password-tab" data-bs-toggle="tab"
+                                data-bs-target="#tab-password" type="button" role="tab" aria-controls="tab-password"
+                                aria-selected="false">
+                                Change Password
+                            </button>
+                        </div>
+                    </nav>
+                    <div class="tab-content" id="nav-tabContent">
+                        <div class="tab-pane fade show active" id="tab-general" role="tabpanel"
+                            aria-labelledby="nav-general-tab">
+                            {% include 'admin/includes/update_tab.html' %}
+                        </div>
+                        <div class="tab-pane fade" id="tab-password" role="tabpanel" aria-labelledby="nav-password-tab">
+                            {% include 'admin/includes/change_password.html' %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock content %}

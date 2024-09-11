@@ -1,0 +1,92 @@
+{% extends 'layout/users_layout.html' %}
+
+
+{% block content %}
+<div class="container-fluid">
+    <div class="container my-3">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb p-3 bg-body-tertiary rounded-3">
+                <li class="breadcrumb-item">
+                    <a class="link-body-emphasis" href="{{ url_for('public.home') }}">
+                        <i class="bi-house-fill"></i>
+                        <span class="visually-hidden">Home</span>
+                    </a>
+                </li>
+                <li class="breadcrumb-item">
+                    <a class="link-body-emphasis fw-semibold text-decoration-none"
+                        href="{{ url_for('public.dashboard') }}">Dashboard</a>
+                </li>
+                <li class="breadcrumb-item active" aria-current="page">
+                    Profile
+                </li>
+            </ol>
+        </nav>
+    </div>
+    <div class="container mt-3 py-4 text-center">
+        <div class="row g-3 align-items-md-stretch mx-auto">
+            <div class="col-md-5 mt-3">
+                <div class="h-100 p-5 bg-body-tertiary border-light rounded-3">
+                    <img src="{{ url_for('static', filename='profile_imgs/'~user.profile_img) }}"
+                        alt="" 
+                        width="250" height="250" class="rounded-circle me-3 mt-4 shadow">
+                    <h2 class="text-info-emphasis text-center mt-2">
+                        {{ current_user.username }}
+                        {% if user.gender == "Male" %}
+                        <span class="badge bg-info-subtle text-info-emphasis rounded-pill">
+                            <i class="bi-gender-male"></i>
+                        </span>
+                        {% else %}
+                        <span class="badge bg-warning-subtle text-warning-emphasis rounded-pill">
+                            <i class="bi-gender-female"></i>
+                        </span>
+                        {% endif %}
+                    </h2>
+                    <p class="fs-5 text-primary-emphasis text-center">
+                        {{ current_user.role }}
+                    </p>
+                </div>
+            </div>
+            <div class="col-md-7 mt-3">
+                <div class="h-100 p-5 bg-info bg-opacity-10 bg-gradient border-light rounded-3">
+                    <div class="container-fluid mt-4">
+                        <table class="table table-border table-hover shadow">
+                            <tr>
+                                <th scope="col" class="text-start text-primary-emphasis p-3">First Name</th>
+                                <td class="text-start text-info-emphasis p-3">{{ user.first_name }}</td>
+                            </tr>
+                            <tr>
+                                <th scope="col" class="text-start text-primary-emphasis p-3">Last Name</th>
+                                <td class="text-start text-info-emphasis p-3">{{ user.last_name }}</td>
+                            </tr>
+                            <tr>
+                                <th scope="col" class="text-start text-primary-emphasis p-3">Email</th>
+                                <td class="text-start text-info-emphasis p-3">{{ current_user.email }}</td>
+                            </tr>
+                            <tr>
+                                <th scope="col" class="text-start text-primary-emphasis p-3">Birthdate</th>
+                                <td class="text-start text-info-emphasis p-3">{{ user.birthdate }}</td>
+                            </tr>
+                            <tr>
+                                <th scope="col" class="text-start text-primary-emphasis p-3">Address</th>
+                                <td class="text-start text-info-emphasis p-3">{{ user.address }}</td>
+                            </tr>
+                        </table>
+                    </div>
+                    <div class="d-flex gap-2 justify-content-end p-2">
+                        <a class="btn btn-outline-dark text-center shadow-sm" href="{{ url_for('public.setting') }}" style="width: 120px;" role="button">
+                            Edit profile
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- JS -->
+<script>
+    $(document).ready(function () {
+        $("#profile-tab").addClass("active");
+    });
+</script>
+{% endblock content %}
